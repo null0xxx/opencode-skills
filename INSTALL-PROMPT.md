@@ -2,7 +2,7 @@
 
 შენ ხარ OpenCode აგენტი Windows-ის კომპიუტერზე. ამოცანა: ამ მანქანაზე ზუსტად ისე დააყენო გლობალური OpenCode V2 კონფიგურაცია, როგორც წყარო-მანქანაზეა დაყენებული — **57 skill, 57 command, `opencode.json` და `AGENTS.md`** — ერთი-ერთში, 100%.
 
-**წყარო:** private რეპო `null0xxx/opencode-skills`, branch `main`.
+**წყარო:** ამ მანქანაზე არსებული ფოლდერი `C:\Users\user\Documents\opencode-skills-main\opencode-skills-main` (ახალი ასლის გადმოსაწერად: რეპო `null0xxx/opencode-skills`, branch `main`).
 **სამიზნე:** `%USERPROFILE%\.config\opencode\` (მოსალოდნელი მნიშვნელობა: `C:\Users\user\.config\opencode`).
 
 ## მკაცრი წესები
@@ -28,19 +28,26 @@
   - ამოაარქივე `%USERPROFILE%\.opencode\bin\`-ში, დაამატე ეს საქაღალდე PATH-ში, გახსენი ახალი ტერმინალი და გადაამოწმე `opencode --version`.
   - ალტერნატივა (თუ npm აყენია): `npm install -g @opencode/cli`
 
-## ნაბიჯი 2 — წყაროს მიღება
+## ნაბიჯი 2 — წყარო: ლოკალური ფოლდერი
 
-- სასურველი გზა (რეპო private-ია):
-  1. `gh auth login` — ანგარიში **null0xxx**
-  2. `gh repo clone null0xxx/opencode-skills "$env:USERPROFILE\Documents\opencode-skills"`
-- თუ `gh` არ არის: გადმოწერე `https://github.com/null0xxx/opencode-skills/archive/refs/heads/main.zip` (GitHub-ზე შესვლა ანგარიშით null0xxx) და ამოაარქივე `%USERPROFILE%\Documents\opencode-skills`-ში.
-- ⚠️ თუ არსებობს ძველი `Documents\opencode-skills-main` საქაღალდე — **ის მოძველებულია, არ გამოიყენო**. აუცილებლად ახლიდან გადმოწერე/დაკლონე.
-- გადაამოწმე წყარო: `skills\` უნდა შეიცავდეს **ზუსტად 57 საქაღალდეს**, `commands\` — **ზუსტად 57 `.md` ფაილს**. თუ რაოდენობა სხვაა — გაჩერდი და მაცნობე.
+წყაროა ამ მანქანაზე უკვე არსებული ფოლდერი:
+
+`C:\Users\user\Documents\opencode-skills-main\opencode-skills-main`
+
+- შეამოწმე მისი სტრუქტურა:
+  - **ახალი (სწორი) ვერსია:** შიგნით არის `skills\`, `commands\` და `config\` საქაღალდეები (და `INSTALL-PROMPT.md`) → გააგრძელე ნაბიჯი 3-იდან.
+  - **ძველი (მოძველებული) ვერსია:** შიგნით პირდაპირ skill-ების საქაღალდეებია (`ultrawork\`, `git-master\`, ...), `commands\`/`config\` არ არის → **გაჩერდი** და მომხმარებელს სთხოვე ახალი ასლის გადმოწერა:
+    1. `https://github.com/null0xxx/opencode-skills/archive/refs/heads/main.zip` (GitHub-ზე შესვლა ანგარიშით null0xxx)
+    2. ამოაარქივოს და ახალი `opencode-skills-main` საქაღალდით **ჩაანაცვლოს** `C:\Users\user\Documents\opencode-skills-main\opencode-skills-main`
+    3. დადასტურების შემდეგ გაიმეორე შემოწმება.
+  - თუ ფოლდერი საერთოდ არ არსებობს → სთხოვე იგივე zip-ის გადმოწერა და იმავე ადგილას ამოაარქივება.
+- გადაამოწმე: `skills\` = ზუსტად **57 საქაღალდე**, `commands\` = ზუსტად **57 `.md` ფაილი**. თუ რაოდენობა სხვაა — გაჩერდი და მაცნობე.
+- (სურვილისამებრ ალტერნატივა: `gh repo clone null0xxx/opencode-skills` — სავალდებულო არ არის, თუ ფოლდერი უკვე სწორია.)
 
 ## ნაბიჯი 3 — backup და კოპირება
 
 - თუ `%USERPROFILE%\.config\opencode` არსებობს: გადაარქვი სახელი → `%USERPROFILE%\.config\opencode.backup-<დღევანდელი თარიღი>`.
-- შექმენი `%USERPROFILE%\.config\opencode` და დააკოპირე (სტრუქტურის შენარჩუნებით):
+- შექმენი `%USERPROFILE%\.config\opencode` და ნაბიჯი 2-ის ფოლდერიდან დააკოპირე (სტრუქტურის შენარჩუნებით):
   - `skills\*` → `%USERPROFILE%\.config\opencode\skills\`
   - `commands\*.md` → `%USERPROFILE%\.config\opencode\commands\`
   - `config\opencode.json` → `%USERPROFILE%\.config\opencode\opencode.json`
@@ -77,7 +84,7 @@
 
 ## სად ვნახო?
 
-- **ეს დოკუმენტი და ამოცანის მიმდინარეობა რეპოშია:** `main` branch-ის `INSTALL-PROMPT.md` (ასლი ავტორის Linux მანქანაზეცაა: `Documents/System/Workstation/opencode-skills-windows-install-prompt-2026-10-17.md`).
+- **ეს დოკუმენტი რეპოშია:** `main` branch-ის `INSTALL-PROMPT.md`.
 - **დაყენების შემდეგ, ამ მანქანაზე:**
   - ფაილები: `%USERPROFILE%\.config\opencode\` (skills • commands • opencode.json • AGENTS.md)
   - OpenCode-ში: აკრიფე `/` — უნდა ჩანდეს 57 command; skill-ის გამოძახება: `/ultrawork` (ან სხვა skill-ის ID)
@@ -85,10 +92,10 @@
 
 ## განახლება მომავალში
 
-```powershell
-cd "$env:USERPROFILE\Documents\opencode-skills"; git pull
-# შემდეგ თავიდან დააკოპირე skills\ და commands\ .config\opencode\-ში და გაიმეორე ნაბიჯი 4
-```
+უახლესი ვერსიის მისაღებად ხელახლა გადმოწერე
+`https://github.com/null0xxx/opencode-skills/archive/refs/heads/main.zip` და ამოაარქივებული
+შიგთავსით ჩაანაცვლე `C:\Users\user\Documents\opencode-skills-main\opencode-skills-main`;
+შემდეგ თავიდან დააკოპირე `skills\`, `commands\`, `config\` `.config\opencode\`-ში და გაიმეორე ნაბიჯი 4.
 
 ## დასკვნითი მოხსენება
 
