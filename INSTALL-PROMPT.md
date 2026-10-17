@@ -67,6 +67,14 @@
 - OMO (oh-my-openagent) **არ არის საჭირო** — ეს skill-ები დამოუკიდებელი ინსტრუქციების პაკეტებია.
 - `opencode.json`-ში `lmstudio` provider (127.0.0.1:1235) და მოდელი `opencode/longcat-2.5-preview-free` წყარო-მანქანის პარამეტრებია — შეგიძლია დატოვო ან შეცვალო.
 
+## სად ვნახო?
+
+- **ეს დოკუმენტი და ამოცანის მიმდინარეობა რეპოშია:** `main` branch-ის `INSTALL-PROMPT.md` (ასლი ავტორის Linux მანქანაზეცაა: `Documents/System/Workstation/opencode-skills-windows-install-prompt-2026-10-17.md`).
+- **დაყენების შემდეგ, ამ მანქანაზე:**
+  - ფაილები: `%USERPROFILE%\.config\opencode\` (skills • commands • opencode.json • AGENTS.md)
+  - OpenCode-ში: აკრიფე `/` — უნდა ჩანდეს 57 command; skill-ის ჩატვირთვა: მიუთითე `@ultrawork` (ან სხვა skill-ის ID) პრომპტში
+  - ვერიფიკაცია: ნაბიჯი 5 (57 / 57 / 57 / 28)
+
 ## განახლება მომავალში
 
 ```powershell
