@@ -1,36 +1,63 @@
 # opencode-skills
 
-57 OpenCode skills vendored from [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) (`dev` branch, Oct 2026), installed for global use.
+The complete global OpenCode V2 setup for this account, exactly as installed on the
+author's machine: **57 skills + 57 slash commands + global config files**.
 
 ## Layout
 
-Each directory is one skill (`<id>/SKILL.md` + supporting files):
-
-| Group | Skills |
+| Path | Contents |
 | --- | --- |
-| Core workflow (shared) | `ast-grep`, `browser`, `coding-agent-sessions`, `data-scientist`, `debugging`, `frontend`, `git-master`, `init-deep`, `lsp-setup`, `programming`, `refactor`, `remove-ai-slops`, `review-work`, `ultimate-browsing`, `ulw-execute`, `ulw-plan`, `ulw-research`, `visual-qa` |
-| Senpi-native | `dag-library`, `give-me-tips`, `mass-ulw`, `onboarding`, `ultrawork`, `ulw-loop`, `visualize`, `senpi-hyperplan`, `senpi-init-deep`, `senpi-ulw-plan`, `senpi-ulw-research` |
-| Codex components | `comment-checker`, `lcx-contribute-bug-fix`, `lcx-doctor`, `lcx-report-bug`, `lsp`, `rules`, `teammode`, `codex-ulw-plan`, `codex-ulw-loop` |
-| Dev/QA | `codex-qa`, `get-unpublished-changes`, `github-triage`, `omomomo`, `opencode-qa`, `publish`, `remove-deadcode`, `senpi-qa`, `tech-debt-audit`, `work-with-pr`, `pre-publish-review`, `agents-security-research`, `agents-hyperplan`, `opencode-hyperplan` |
-| Built-in variants | `dev-browser`, `builtin-frontend`, `builtin-git-master`, `builtin-security-research` |
-| Misc | `x-search` |
+| `skills/` | 57 skill directories (`<id>/SKILL.md` plus supporting scripts and references) |
+| `commands/` | 57 command files (`<id>.md`, one per skill) |
+| `config/opencode.json` | Global OpenCode config (skills path, subagents, provider, permissions) |
+| `config/AGENTS.md` | Global instructions file |
+| `INSTALL-PROMPT.md` | Ready-to-paste prompt that installs this setup, verbatim, on another machine |
+| `docs/VENDORING.md` | Provenance of the vendored upstream skill pack |
 
-Overlapping upstream variants are namespaced (`senpi-*`, `codex-*`, `agents-*`, `opencode-*`, `builtin-*`); the shared/OpenCode edition keeps the canonical ID.
+Every installed `SKILL.md` carries an `## Installed OpenCode v2 compatibility`
+section so the vendored workflows run correctly on OpenCode V2.
 
-## Install
+## Install on another machine
+
+Copy the content of `INSTALL-PROMPT.md` into an OpenCode agent on the target
+machine and let it run. It:
+
+1. verifies/installs OpenCode V2,
+2. clones (or downloads) this repo,
+3. copies `skills/`, `commands/` and `config/` into `~/.config/opencode/`,
+4. substitutes the `/home/secc` home path with the target machine's home,
+5. verifies the result (57 skills, 57 commands, 57 compatibility sections).
+
+## Manual install (Linux/macOS)
 
 ```sh
-cp -r <id> ~/.config/opencode/skills/<id>
+git clone https://github.com/null0xxx/opencode-skills /tmp/opencode-skills
+mkdir -p ~/.config/opencode
+cp -a /tmp/opencode-skills/skills/. ~/.config/opencode/skills/
+cp -a /tmp/opencode-skills/commands/. ~/.config/opencode/commands/
+cp /tmp/opencode-skills/config/opencode.json ~/.config/opencode/opencode.json
+cp /tmp/opencode-skills/config/AGENTS.md ~/.config/opencode/AGENTS.md
 ```
 
-## Known asset gaps (upstream limits, not install defects)
+Then replace `/home/secc` with your home directory inside the copied files.
 
-- `frontend` third-party upstreams are empty (GitHub tarballs exclude submodule contents).
-- `browser` omowright runtime is unstaged (needs `npm`/`bun` at build time).
-- `*.mjs` helper scripts need `node`/`bun` to execute.
+## Windows
 
-## Provenance
+Target directory: `%USERPROFILE%\.config\opencode`. See `INSTALL-PROMPT.md`.
+`skills/ast-grep/bin/sg` (the ~51 MB Linux binary) is intentionally **not**
+vendored; on Windows run `skills\ast-grep\install.ps1` to install `sg.exe`.
 
-Source: `https://github.com/code-yeongyu/oh-my-openagent` @ `dev`, October 2026.
-Identical `.opencode/skills/{github-triage,pre-publish-review,work-with-pr}` duplicates of `.agents/skills` were deduplicated.
-`builtin-security-research/SKILL.md` gained a `description` frontmatter (upstream file had none, so OpenCode would not advertise it).
+## Intentionally not in this repo
+
+- `skills/ast-grep/bin/sg` — 51 MB platform binary (use the skill's `install.sh` / `install.ps1`).
+- `__pycache__` directories — regenerable Python bytecode caches.
+- `service.json` — machine-generated local server password (OpenCode recreates it).
+- `~/.local/share/opencode-skill-runtimes/` — 178 MB generated runtime data, not config.
+
+## Updating
+
+```sh
+cd ~/.local/share/opencode-skills   # or wherever you cloned it
+git pull
+# then re-copy skills/ and commands/ to ~/.config/opencode/ if anything changed
+```

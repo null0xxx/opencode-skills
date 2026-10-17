@@ -1,0 +1,76 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/longcat-2.5-preview-free",
+  "default_agent": "build",
+  "update": "notify",
+  "skills": [
+    "/home/secc/.config/opencode/skills"
+  ],
+  "formatter": true,
+  "lsp": true,
+  "permissions": [
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "/home/secc/.config/opencode/skills/**",
+      "effect": "allow"
+    }
+  ],
+  "agents": {
+    "reviewer": {
+      "description": "Review a change against the user goal, correctness, security, and actual verification evidence",
+      "mode": "subagent",
+      "system": "Review independently. Read the supplied goal, relevant diff and files. Cite concrete defects with paths and evidence. Do not edit files, commit, push, or launch further agents. Distinguish proven findings from uncertainty and return a clear verdict.",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "researcher": {
+      "description": "Research official documentation and repository evidence; return cited findings",
+      "mode": "subagent",
+      "system": "Research the supplied question using primary documentation and repository evidence. Cite URLs or file paths. Separate facts, inference, and unresolved questions. Do not edit files, commit, push, or launch further agents.",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    }
+  },
+  "provider": {
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:1235/v1"
+      },
+      "models": {
+        "gemma-4-26b-a4b": {
+          "name": "Gemma 4 26B-A4B local",
+          "tool_call": true,
+          "limit": {
+            "context": 131072,
+            "output": 16384
+          }
+        },
+        "google/gemma-4-26b-a4b-qat": {
+          "name": "Gemma 4 26B-A4B local",
+          "tool_call": true,
+          "limit": {
+            "context": 131072,
+            "output": 16384
+          }
+        }
+      }
+    }
+  }
+}
